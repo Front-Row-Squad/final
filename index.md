@@ -113,7 +113,7 @@ The final lighting effect that we implemented was underwater fog, which accounts
 It is notable that our basic mesh produces aliasing artifacts near the horizon (vanishing line of the water plane). Specifically, instead of being flat as in real life, the vanishing line often is blurred and composed of a wave-like pixelated pattern. This is because the screen-space wave frequency is $\mathcal\Theta(z)$, where $z$ is the distance to the camera. When this exceeds half of the pixel sampling frequency, by the Nyquist sampling theorem, aliasing will occur. To this end, we propose a method for reducing the resolution of the mesh as the distance to the camera grows. The reduction also has to be gradual and fit with the rendering pattern in order to retain the visual effects. Inspired by mipmapping, we propose halfing the resolution in z-coordinate intervals with power-of-2 sizes, and call it mip-water. As shown in Fig. 7, this allows the water's resolution to be gradually decreased as the distance from the camera increases.
 
 <div align="center">
-    <img src="./fig7.png" width="50%">
+    <img src="./fig7.png" width="100%">
     <p><em>Figure 7</em>. Comparisons w/ and w/o anti-aliasing with mip-water.</p>
 </div>
 
