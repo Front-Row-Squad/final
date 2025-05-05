@@ -1,5 +1,7 @@
 {% include mathjax.html %}
 
+Video: https://www.youtube.com/watch?v=AUwgjJ61g68
+
 <div align="center">
     <img src="./fig1.png" width="100%">
     <p><em>Figure 1</em>. Our water model adapts to diverse fluid scenarios such as ocean waves, lava flows, pool ripples, and stylized seas using only simple parameter tweaks.</p>
