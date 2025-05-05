@@ -33,7 +33,7 @@ For our initial setup, we implemented a simple Blinn-Phong shading model to prov
 
 ## Phase 2 –– Simplification and Extension of Open Source
 
-Using Gunnell's open source water project as a blueprint and supporting code libraries \cite{gunnell2025,iamyoukou2025}, we implemented a simplified FFT‐based water system with single spectrum waves of 4 layers, basic lighting of the environment, a basic foam layer driven by height thresholds and no skybox sampling at runtime. To create a comprehensive water model, we improved three key areas: efficient buoyancy, enhanced lighting features (reflection, refraction, and caustics), and an MIP-mesh to eliminate aliasing at the horizon.
+Using Gunnell's open source water project as a blueprint and supporting code libraries [1,6], we implemented a simplified FFT‐based water system with single spectrum waves of 4 layers, basic lighting of the environment, a basic foam layer driven by height thresholds and no skybox sampling at runtime. To create a comprehensive water model, we improved three key areas: efficient buoyancy, enhanced lighting features (reflection, refraction, and caustics), and an MIP-mesh to eliminate aliasing at the horizon.
 
 ### Custom Float-Point Buoyancy System
 
@@ -62,7 +62,7 @@ where $N_{\rm obj}$ is the number of objects and $N_{\rm samp}$ is the number of
 
 ### Improved Lighting
 
-The basic lighting effects using Phong shading do not create very realistic looking water, despite the geometry we have been able to achieve using sum of sine waves. In this next section we implement reflections, refractions, caustics, and water fog adapted from Leon Jovanovic's shaders\cite{jovanovic2025} to work with the geometry model that we've developed.
+The basic lighting effects using Phong shading do not create very realistic looking water, despite the geometry we have been able to achieve using sum of sine waves. In this next section we implement reflections, refractions, caustics, and water fog adapted from Leon Jovanovic's shaders [2] to work with the geometry model that we've developed.
 
 Reflections were implemented as a simplified Fresnel reflection using Schlick's approximation given as
 
@@ -80,9 +80,9 @@ The final lighting effect that we implemented was underwater fog, which accounts
 
 ### Mesh Anti-aliasing
 
-It is notable that our basic mesh produces aliasing artifacts near the horizon (vanishing line of the water plane). Specifically, instead of being flat as in real life, the vanishing line often is blurred and composed of a wave-like pixelated pattern. This is because the screen-space wave frequency is $\mathcal\Theta(z)$, where $z$ is the distance to the camera. When this exceeds half of the pixel sampling frequency, by the Nyquist sampling theorem, aliasing will occur. To this end, we propose a method for reducing the resolution of the mesh as the distance to the camera grows. The reduction also has to be gradual and fit with the rendering pattern in order to retain the visual effects. Inspired by mipmapping, we propose halfing the resolution in z-coordinate intervals with power-of-2 sizes, and call it mip-water. As shown in Fig.~\ref{fig:mipwater}, this allows the water's resolution to be gradually decreased as the distance from the camera increases.
+It is notable that our basic mesh produces aliasing artifacts near the horizon (vanishing line of the water plane). Specifically, instead of being flat as in real life, the vanishing line often is blurred and composed of a wave-like pixelated pattern. This is because the screen-space wave frequency is $\mathcal\Theta(z)$, where $z$ is the distance to the camera. When this exceeds half of the pixel sampling frequency, by the Nyquist sampling theorem, aliasing will occur. To this end, we propose a method for reducing the resolution of the mesh as the distance to the camera grows. The reduction also has to be gradual and fit with the rendering pattern in order to retain the visual effects. Inspired by mipmapping, we propose halfing the resolution in z-coordinate intervals with power-of-2 sizes, and call it mip-water. As shown in Fig. 7, this allows the water's resolution to be gradually decreased as the distance from the camera increases.
 
-The antialiasing effects are shown in Fig.~\ref{fig:aa}. As shown, our antialiasing method, while not affecting any of the shading pipeline, is able to produce a visually much more appealing and realistic view of the horizon.
+The antialiasing effects are shown in Fig. 8. As shown, our antialiasing method, while not affecting any of the shading pipeline, is able to produce a visually much more appealing and realistic view of the horizon.
 
 This has the additional theoretical benefit of optimization by better making use of tesselation, as now the further-away parts of the mesh, which once are too detailed for tesselation, can also take advantage of it. However, in experiments this performance improvement seemed to be negligible.
 
